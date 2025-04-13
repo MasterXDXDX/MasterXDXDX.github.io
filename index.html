@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Moai Click!</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            cursor: pointer;
+        }
+        
+        #mainMoai {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            transition: transform 0.1s;
+        }
+
+        #mainMoai:active {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        .moai {
+            position: absolute;
+            width: 70px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <img id="mainMoai" src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/1024px/1f5ff.png" alt="Moai">
+
+    <script>
+        const mainMoai = document.getElementById('mainMoai');
+        let moaiCount = 0;
+		const audio = new Audio("boom.mp3");
+		const amoai = new Audio("moai.mp3")
+		
+		
+		function playMoaiSound() {
+			audio.currentTime = 0.2;
+			audio.play()
+		}
+		
+		
+        
+        mainMoai.addEventListener('click', function() {
+			amoai.play();
+			playMoaiSound();
+            // Crear nuevo moai en posición aleatoria
+            const newMoai = document.createElement('img');
+            newMoai.src = this.src;
+            newMoai.className = 'moai';
+            
+            const x = Math.random() * (window.innerWidth - 50);
+            const y = Math.random() * (window.innerHeight - 50);
+            
+            newMoai.style.left = x + 'px';
+            newMoai.style.top = y + 'px';
+            
+            document.body.appendChild(newMoai);
+            
+            // Incrementar contador
+            moaiCount++;
+            
+            // Verificar si es momento del Rickroll
+            if(moaiCount === 5) {
+                window.location.replace('https://news.rr.nihalnavath.com/news/moai-7bb3900d');
+            }
+        });
+    </script>
+</body>
+</html>
